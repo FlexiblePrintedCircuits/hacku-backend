@@ -22,7 +22,8 @@ model Room {
 model Guest {
     id              String      @id @default(uuid())
     name            String
-    linkedProject   Room[]
+    roomId          String
+    linkedProject   Room        @relation(fields: [roomId], references: [id])
 }
 
 // お題
@@ -31,7 +32,8 @@ model Theme {
     title           String
     createdUserName   String
     numberOfVotes   Int         @default(0)
-    linkedRoom      Room[]
+    roomId          String
+    linkedRoom      Room        @relation(fields: [roomId], references: [id])
     linkedAnser     Answer[]
 }
 
@@ -41,5 +43,6 @@ model Answer {
     title           String
     createdUserName   String
     numberOfVotes   Int
-    linkedTheme     Theme[]
+    themeId         String
+    linkedTheme     Theme       @relation(fields: [themeId], references: [id])
 }

@@ -26,6 +26,7 @@ export default class TehemeRepository {
     async createTheme(roomId: string, newTheme: string, userName: string) {
         const theme = await prisma.theme.create({
             data: {
+                roomId: roomId,
                 title: newTheme,
                 createdUserName: userName,
                 numberOfVotes: 0,

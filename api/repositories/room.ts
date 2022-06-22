@@ -29,21 +29,29 @@ export default class RoomRepository {
             }
         })
 
-        return room.id
+        return { room_id: room.id }
     }
 
     async joinRoom(roomId: string, name: string) {
+        console.log(name)
+        const guest = await prisma.guest.create({
+            data: {
+                name: name,
+                roomId: roomId
+            }
+        })
+
         return await prisma.room.update({
             where: {
                 id: roomId
             },
             data: {
                 guests: {
-                    create: {
-                        name: name
+                    connect: {
+                        id: guest.id,
                     }
                 }
-            }
+            },
         })
     }
 
