@@ -6,7 +6,7 @@ const prisma = new PrismaClient({
 
 export default class AnswerRepository {
     async findByThemeId(themeId: string) {
-        return await prisma.theme.findUnique({
+        return await prisma.theme.findMany({
             where: {
                 id: themeId
             },

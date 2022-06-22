@@ -64,7 +64,7 @@ app.post(
 )
 
 app.get(
-	'/room/timestamps/:userId',
+	'/room/timestamps/:roomId',
 	async (req: express.Request, res: express.Response) => {
         const timestampResult = await getNowTimestampUseCase(req.params.roomId)
         res.status(200)
@@ -73,7 +73,7 @@ app.get(
 )
 
 app.get(
-	'/room/:userId',
+	'/room/:roomId',
 	async (req: express.Request, res: express.Response) => {
         const roomInfoResult = await getRoomInfoUseCase(req.params.roomId)
         res.status(200)
@@ -94,7 +94,7 @@ app.post(
 	}
 )
 
-app.post(
+app.get(
 	'/theme/read/:roomId',
 	async (req: express.Request, res: express.Response) => {
         const readThemesResult = await getThemesFindByRoomIdUsecase(req.params.roomId)
@@ -125,7 +125,7 @@ app.post(
 	}
 )
 
-app.post(
+app.get(
 	'/answer/read/:themeId',
 	async (req: express.Request, res: express.Response) => {
         const readThemesResult = await getAnswersFindByRoomIdUsecase(req.params.themeId)

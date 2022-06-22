@@ -47,6 +47,8 @@ export default class TehemeRepository {
                 }
             }
         })
+
+        return theme
     }
 
     async voteTheme(themeId: string) {

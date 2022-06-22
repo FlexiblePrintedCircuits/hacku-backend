@@ -1,8 +1,8 @@
-import TehemeRepository from "../repositories/answer";
+import TehemeRepository from "../repositories/theme";
 
 const getThemesFindByRoomIdUsecase = async (roomId: string) => {
     const themeRepository = new TehemeRepository()
-    return await themeRepository.findByThemeId(roomId)
+    return await themeRepository.findByRoomId(roomId)
 }
 
 const createThemeUseCase = async (
@@ -11,12 +11,12 @@ const createThemeUseCase = async (
     userName: string
 ) => {
     const themeRepository = new TehemeRepository()
-    return await themeRepository.createAnswer(roomId, newTheme, userName)
+    return await themeRepository.createTheme(roomId, newTheme, userName)
 }
 
 const voteThemeUseCase = async (themeId: string) => {
     const themeRepository = new TehemeRepository()
-    return await themeRepository.voteAnswer(themeId)
+    return await themeRepository.voteTheme(themeId)
 }
 
 export {
