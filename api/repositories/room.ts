@@ -55,7 +55,7 @@ export default class RoomRepository {
         })
     }
 
-    async activeRoom(roomId: string) {
+    async doActiveRoom(roomId: string) {
         await prisma.room.update({
             where: {
                 id: roomId
@@ -75,7 +75,24 @@ export default class RoomRepository {
         })
 
         return await {
+            isActive: true,
             timestamp: startedTimestamp.updatedAt
+        }
+    }
+
+    async getActiveRoom(roomId: string){
+        const nowRoomState = await prisma.room.findUnique({
+            where: {
+                id: roomId
+            },
+            select: {
+                updatedAt: true,
+                isActive: true
+            }
+        })
+        return {
+                isActive: nowRoomState.isActive,
+                timestamp: nowRoomState.updatedAt
         }
     }
 

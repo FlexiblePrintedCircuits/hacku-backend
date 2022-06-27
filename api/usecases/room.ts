@@ -25,9 +25,14 @@ const getJoinedUsersUseCase = async (roomId: string) => {
     return await roomRepository.getJoinedUsers(roomId)
 }
 
-const activeRoomUseCase = async (roomId: string) => {
+const doActiveRoomUseCase = async (roomId: string) => {
     const roomRepository = new RoomRepository()
-    return await roomRepository.activeRoom(roomId)
+    return await roomRepository.doActiveRoom(roomId)
+}
+
+const getActiveRoomUseCase = async (roomId: string) => {
+    const roomRepository = new RoomRepository()
+    return await roomRepository.getActiveRoom(roomId)
 }
 
 const getNowTimestampUseCase = async (roomId: string) => {
@@ -40,6 +45,7 @@ export {
     createRoomUseCase,
     joinRoomUseCase,
     getJoinedUsersUseCase,
-    activeRoomUseCase,
+    doActiveRoomUseCase,
+    getActiveRoomUseCase,
     getNowTimestampUseCase
 }

@@ -6,26 +6,39 @@ import {
     createRoomUseCase,
     joinRoomUseCase,
     getJoinedUsersUseCase,
-    activeRoomUseCase,
+    doActiveRoomUseCase,
+    getActiveRoomUseCase,
     getNowTimestampUseCase
 } from './usecases/room'
 
 import {
     getThemesFindByRoomIdUsecase,
     createThemeUseCase,
+    getMaxThemes,
     voteThemeUseCase
 } from './usecases/theme'
 
 import {
     getAnswersFindByRoomIdUsecase,
     createAnswerUseCase,
-    voteAnswerUseCase
+    voteAnswerUseCase,
+    getMaxAnswerUseCase
 } from './usecases/answer'
 
 
 const app: express.Express = express()
 app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true }))
+
+app.get(
+	'/healthcheck',
+	async (req: express.Request, res: express.Response) => {
+        res.setHeader('Access-Control-Allow-Origin', '*')
+        const roomInfoResult = "health checck OK"
+        res.status(200)
+        res.json(roomInfoResult)
+	}
+)
 
 app.post(
 	'/room/create',
@@ -36,10 +49,19 @@ app.post(
 	}
 )
 
+app.post(
+	'/room/active/:roomId',
+	async (req: express.Request, res: express.Response) => {
+        const activeResult = await doActiveRoomUseCase(req.params.roomId)
+        res.status(200)
+        res.json(activeResult)
+	}
+)
+
 app.get(
 	'/room/active/:roomId',
 	async (req: express.Request, res: express.Response) => {
-        const activeResult = await activeRoomUseCase(req.params.roomId)
+        const activeResult = await getActiveRoomUseCase(req.params.roomId)
         res.status(200)
         res.json(activeResult)
 	}
@@ -64,7 +86,7 @@ app.post(
 )
 
 app.get(
-	'/room/timestamps/:roomId',
+  '/room/timestamps/:roomId',
 	async (req: express.Request, res: express.Response) => {
         const timestampResult = await getNowTimestampUseCase(req.params.roomId)
         res.status(200)
@@ -103,6 +125,15 @@ app.get(
 	}
 )
 
+app.get(
+    '/theme/max/:roomId',
+	async (req: express.Request, res: express.Response) => {
+        const readThemesResult = await getMaxThemes(req.params.roomId)
+        res.status(200)
+        res.json(readThemesResult)
+	}
+)
+
 app.post(
 	'/theme/vote/:themeId',
 	async (req: express.Request, res: express.Response) => {
@@ -131,6 +162,15 @@ app.get(
         const readThemesResult = await getAnswersFindByRoomIdUsecase(req.params.themeId)
         res.status(200)
         res.json(readThemesResult)
+	}
+)
+
+app.get(
+    '/answer/max/:themeId',
+	async (req: express.Request, res: express.Response) => {
+        const voteResult = await getMaxAnswerUseCase(req.params.themeId)
+        res.status(200)
+        res.json(voteResult)
 	}
 )
 
