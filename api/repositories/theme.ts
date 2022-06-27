@@ -22,6 +22,26 @@ export default class TehemeRepository {
             }
         })
     }
+    async MaxThemefindByRoomId(roomId: string) {
+        return await prisma.room.findFirst({
+            where: {
+                id: roomId
+            },
+            select: {
+                themes: {
+                    orderBy: {
+                        numberOfVotes: 'desc'
+                    },
+                    select:{
+                        id: true,
+                        title: true,
+                        createdUserName: true,
+                        numberOfVotes: true
+                    }
+                }
+            }
+        })
+    }
 
     async createTheme(roomId: string, newTheme: string, userName: string) {
         const theme = await prisma.theme.create({

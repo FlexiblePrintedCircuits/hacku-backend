@@ -19,8 +19,14 @@ const voteAnswerUseCase = async (answerId: string) => {
     return await answerRepository.voteAnswer(answerId)
 }
 
+const getMaxAnswerUseCase = async (themeId: string) => {
+    const answerRepository = new AnswerRepository()
+    return await answerRepository.getMaxAnswer(themeId)
+}
+
 export {
     getAnswersFindByRoomIdUsecase,
     createAnswerUseCase,
+    getMaxAnswerUseCase,
     voteAnswerUseCase
 }

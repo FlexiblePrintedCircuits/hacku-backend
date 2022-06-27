@@ -5,6 +5,11 @@ const getThemesFindByRoomIdUsecase = async (roomId: string) => {
     return await themeRepository.findByRoomId(roomId)
 }
 
+const getMaxThemes = async (roomId: string) => {
+    const themeRepository = new TehemeRepository()
+    return await themeRepository.MaxThemefindByRoomId(roomId)
+}
+
 const createThemeUseCase = async (
     roomId: string,
     newTheme: string, 
@@ -22,5 +27,6 @@ const voteThemeUseCase = async (themeId: string) => {
 export {
     getThemesFindByRoomIdUsecase,
     createThemeUseCase,
+    getMaxThemes,
     voteThemeUseCase
 }

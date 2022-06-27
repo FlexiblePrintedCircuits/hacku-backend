@@ -3,24 +3,29 @@
 ルームを新規作成
 
 req
-```
+
 ```
 
-res 
+```
+
+res
+
 ```
 {"room_id":"d6284330-f283-4587-a95b-b7892e0b8563"}
 ```
 
 # 【POST】 /room/guests/:roomId
 
-ルームにゲストをjoin
+ルームにゲストを join
 
 req
+
 ```
 "name": "ゲストの名前"
 ```
 
 res
+
 ```
 {
     "id":"d6284330-f283-4587-a95b-b7892e0b8563",
@@ -30,17 +35,20 @@ res
 }
 ```
 
-＊ ID はルームID
+＊ ID はルーム ID
 
 # 【GET】 /room/guests/:roomId
 
 ルームに入っているゲストの一覧情報を取得
 
 req
+
 ```
+
 ```
 
 res
+
 ```
 [
     {
@@ -53,19 +61,40 @@ res
 ]
 ```
 
-# 【GET】 /room/active/:roomId
+# 【POST】 /room/active/:roomId
 
-roomId の部屋をアクティブ化（仕様上アクティブにしてもしなくても何も変わらない）
+roomId の部屋をアクティブ化
 
 req
 
 ```
+
 ```
 
 res
 
 ```
 {
+    "isActive": true
+    "timestamp":"2022-06-22T09:38:53.391Z"
+}
+```
+
+# 【GET】 /room/active/:roomId
+
+roomId の部屋をアクティブ情報を取得
+
+req
+
+```
+
+```
+
+res
+
+```
+{
+    "isActive": false
     "timestamp":"2022-06-22T09:38:53.391Z"
 }
 ```
@@ -77,6 +106,7 @@ res
 req
 
 ```
+
 ```
 
 res
@@ -91,13 +121,13 @@ res
 
 ルームの情報を取得
 
-
 req
 
 ```
+
 ```
 
-res 
+res
 
 ```
 {
@@ -141,6 +171,7 @@ res
 req
 
 ```
+
 ```
 
 res
@@ -150,8 +181,8 @@ res
     "themes": [
         {
             "id":"ef6c951c-3949-4cf1-8990-4607e44849f7",
-            "title":"お題hoge", 
-            "createdUserName":"hogehogehoge", 
+            "title":"お題hoge",
+            "createdUserName":"hogehogehoge",
             "numberOfVotes":0
         }
     ]
@@ -165,6 +196,7 @@ res
 req
 
 ```
+
 ```
 
 res
@@ -172,6 +204,31 @@ res
 ```
 {
     "number_of_votes": 1
+}
+```
+
+# 【GET】 /theme/max/:roomId
+
+お題一覧を取得(今は投票数の多い順に並んでる)
+
+req
+
+```
+
+```
+
+res
+
+```
+{
+    "themes": [
+        {
+            "id":"ef6c951c-3949-4cf1-8990-4607e44849f7",
+            "title":"お題hoge",
+            "createdUserName":"hogehogehoge",
+            "numberOfVotes":0
+        }
+    ]
 }
 ```
 
@@ -206,6 +263,7 @@ res
 req
 
 ```
+
 ```
 
 res
@@ -213,7 +271,7 @@ res
 ```
 [
     {
-        "linkedAnser": [      
+        "linkedAnser": [
             {
                 "id": "9dd0ae52-1b3d-4326-8dd8-b7c9e57504a7","title": "回答",
                 "createdUserName": "hogehogehoge","numberOfVotes":0
@@ -230,6 +288,7 @@ answerId の回答に投票
 req
 
 ```
+
 ```
 
 res
@@ -237,5 +296,28 @@ res
 ```
 {
     "number_of_votes": 1
+}
+```
+
+# 【GET】 /answer/max/:themeId
+
+お題に対する回答一覧を取得(今は投票数の多い順に並んでる)
+
+req
+
+```
+
+```
+
+res
+
+```
+{
+    "linkedAnser": [
+        {
+            "id": "9dd0ae52-1b3d-4326-8dd8-b7c9e57504a7","title": "回答",
+            "createdUserName": "hogehogehoge","numberOfVotes":0
+        }
+    ]
 }
 ```

@@ -23,6 +23,27 @@ export default class AnswerRepository {
         })
     }
 
+    async getMaxAnswer(themeId: string){
+        return await prisma.theme.findFirst({
+            where:{
+                id: themeId
+            },
+            select:{
+                linkedAnser:{
+                    orderBy: {
+                        numberOfVotes: 'desc'
+                    },
+                    select: {
+                        id: true,
+                        title: true,
+                        createdUserName: true,
+                        numberOfVotes: true,
+                    }
+                }
+            }
+        })
+    }
+
     async createAnswer(themeId: string, newAnswer: string, userName: string) {
         return await prisma.answer.create({
             data: {
@@ -61,4 +82,5 @@ export default class AnswerRepository {
             number_of_votes: newNumberOfVotes.numberOfVotes
         }
     }
+
 }
